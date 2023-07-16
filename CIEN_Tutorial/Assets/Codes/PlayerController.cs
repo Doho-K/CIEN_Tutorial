@@ -8,48 +8,46 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private Collider2D coll;
-    public float maxSpeed;
-    public float jumpPower;
+    
+    [SerializeField] private float maxSpeed;
+    [SerializeField] private float jumpPower;
+    [SerializeField] private LayerMask ground;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //스페이스바로 점프
-        if (Input.GetKeyDown(KeyCode.Space) && this.rb.velocity.y == 0)
-        {
-            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
-        }
+        coll = GetComponent<Collider2D>();
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "BearEnemy")//적에게 피격시
+        if(collision.gameObject.tag == "Enemy" || collision.gameObject.tag == "Floor")//적에게 피격시
         {
             Destroy(gameObject);
             SceneManager.LoadScene("GameoverScene");
         }
     }
 
-    void FixedUpdate()
+    void Update()
     {
         //방향키로 이동
-        float h = Input.GetAxisRaw("Horizontal");
+        float h = Input.GetAxis("Horizontal");
 
-        rb.AddForce(Vector2.right * h, ForceMode2D.Impulse);
+        if (h < 0)
+        {
+            rb.velocity = new Vector2(-1 * maxSpeed, rb.velocity.y);
+            transform.localScale = new Vector2(-1, 1);
+        }
+        else if(h > 0)
+        {
+            rb.velocity = new Vector2( maxSpeed, rb.velocity.y);
+            transform.localScale = new Vector2(1, 1);
+        }
 
-        if (rb.velocity.x > maxSpeed)
+        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))
         {
-            rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
+            rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
         }
-        else if (rb.velocity.x < maxSpeed * (-1))
-        {
-            rb.velocity = new Vector2(maxSpeed * (-1), rb.velocity.y);
-        }
+
     }
 }
