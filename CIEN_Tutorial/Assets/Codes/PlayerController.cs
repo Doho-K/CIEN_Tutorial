@@ -8,10 +8,14 @@ public class PlayerController : MonoBehaviour
     private Rigidbody2D rb;
     private Animator anim;
     private Collider2D coll;
+    
 
     private bool IsDead = false;
     private enum State { idle,running,jumping,falling}
     private State state = State.idle;
+    [SerializeField] private AudioSource footStep;
+    [SerializeField] private AudioSource jumpSound;
+    [SerializeField] private AudioSource deathSound;
     [SerializeField] private GameManager gm;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpPower;
@@ -36,6 +40,11 @@ public class PlayerController : MonoBehaviour
             }
             else
             {
+                collision.gameObject.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
+                if (collision.gameObject.name == "BearEnemy")
+                {
+                    collision.gameObject.GetComponent<BearEnemyController>().enabled = false;
+                }
                 Death();
             
             }
@@ -90,11 +99,13 @@ public class PlayerController : MonoBehaviour
 
     private void Jump()
     {
+            jumpSound.Play();
             rb.AddForce(Vector2.up * jumpPower, ForceMode2D.Impulse);
             state = State.jumping;
     }
     private void VelocityState()
     {
+
         if (state == State.jumping)
         {
             if(rb.velocity.y < .1f)
@@ -113,6 +124,7 @@ public class PlayerController : MonoBehaviour
         {
             state = State.running;
         }
+        
         else
         {
             state = State.idle;
@@ -123,8 +135,10 @@ public class PlayerController : MonoBehaviour
 
     private void Death()
     {
+        coll.enabled = false;
         gm.health -= 1;
         rb.bodyType = RigidbodyType2D.Static;
+        deathSound.Play();
         IsDead = true;
         anim.SetBool("IsDead", IsDead);
         Invoke("MoveScene", 2);
@@ -134,5 +148,10 @@ public class PlayerController : MonoBehaviour
     {
         Destroy(gameObject);
         SceneManager.LoadScene("GameoverScene");
+    }
+
+    private void footStepSound()
+    {
+        footStep.Play();
     }
 }

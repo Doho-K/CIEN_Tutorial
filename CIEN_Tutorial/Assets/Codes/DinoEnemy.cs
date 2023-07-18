@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class DinoEnemy : MonoBehaviour
 {
+    [Header ("변경 가능 속성")]
+    [Tooltip ("왼쪽 이동 범위")]
     [SerializeField] private float leftCap;
+    [Tooltip("오른쪽 이동 범위")]
     [SerializeField] private float rightCap;
-
+    [Tooltip("점프 길이")]
     [SerializeField] private float jumpLength = 10f;
+    [Tooltip("점프 높이")]
     [SerializeField] private float jumpHeight = 15f;
+
+    [Space(10f)]
     [SerializeField] private LayerMask ground;
 
     private bool facingLeft = true;
