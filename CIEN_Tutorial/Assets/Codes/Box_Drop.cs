@@ -7,10 +7,11 @@ public class Box_Drop : MonoBehaviour
     private GameObject box;
     private Collider2D coll;
     private Rigidbody2D rb;
-    [SerializeField] private float dropSpeed = 15;
+    [SerializeField] private float dropSpeed = 20;
     // Start is called before the first frame update
     void Start()
     {
+        dropSpeed = 20;
         box = transform.parent.gameObject;
         rb = box.GetComponent<Rigidbody2D>();
         coll = GetComponent<Collider2D>();

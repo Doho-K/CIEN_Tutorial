@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1214042758159459657}
   - component: {fileID: 1214042758159459658}
   - component: {fileID: 1214042758159459659}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: RandomBlock
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.32, y: 0.32}
+  m_Size: {x: 1.981163, y: 1.9811592}
   m_EdgeRadius: 0
 --- !u!114 &1214042758159459659
 MonoBehaviour:

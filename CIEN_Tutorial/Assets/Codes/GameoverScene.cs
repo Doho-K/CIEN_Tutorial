@@ -13,9 +13,13 @@ public class GameoverScene : MonoBehaviour
     }
     public void GameSceneCtrl()
     {
-        if (gm.health != 0)
+        if (gm.health != 0&&gm.stage == 1)
         {
             SceneManager.LoadScene("SampleScene");
+        }
+        else if(gm.health!=0&&gm.stage == 2)
+        {
+            SceneManager.LoadScene("NightScene");
         }
         
     }

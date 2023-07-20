@@ -14,7 +14,11 @@ public class InvisibleBlock : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        rd.enabled = true;
-        coll.isTrigger = false;
+        if (collision.gameObject.tag == "Player")
+        {
+            rd.enabled = true;
+            coll.isTrigger = false;
+        }
+        
     }
 }

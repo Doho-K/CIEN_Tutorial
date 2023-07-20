@@ -7,8 +7,9 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+    public int stage = 1;
     [SerializeField] private GameObject text;
-    public int health = 5;
+    public int health = 20;
     public static GameManager Instance
     {
         get
@@ -37,11 +38,7 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
     
-    void Start()
-    {
 
-
-    }
     private void Update()
     {
         if(text == null)

@@ -20,6 +20,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float maxSpeed;
     [SerializeField] private float jumpPower;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private LayerMask block;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class PlayerController : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+
         if(collision.gameObject.tag == "Enemy")//적에게 피격시
         {
             if(state == State.falling)
@@ -60,6 +63,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+
     void Update()
     {
         //방향키로 이동
@@ -87,7 +91,8 @@ public class PlayerController : MonoBehaviour
             
         }
 
-        if (Input.GetButtonDown("Jump") && coll.IsTouchingLayers(ground))
+
+        if (Input.GetButtonDown("Jump") && (coll.IsTouchingLayers(ground)||coll.IsTouchingLayers(block)))
         {
             Jump();
         }

@@ -20,6 +20,7 @@ public class FakeGround : MonoBehaviour
         {
             rb.velocity = new Vector2(0, -10f);
             rb.bodyType = RigidbodyType2D.Dynamic;
+            coll.isTrigger = true;
         }
     }
 }

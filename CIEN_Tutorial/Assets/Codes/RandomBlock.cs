@@ -17,13 +17,14 @@ public class RandomBlock : MonoBehaviour
     {
 
         //아래에서 치면 적 생성
-        if (other.contacts[0].normal.y > 0 && num == 0)
+        if (other.contacts[0].normal.y > 0 && num == 0&&other.gameObject.tag=="Player")
         {
             GameObject item = Instantiate(enemy);
             item.transform.position = new Vector3(transform.position.x, transform.position.y + 1, 0);
             num++;
+            Destroy(this.gameObject);
         }
-        Destroy(this.gameObject);
+        
     }
 
 
